@@ -82,7 +82,8 @@ if __name__ == '__main__':
             name,
             T.NormalizeFeatures())
 
-    path = osp.join(osp.expanduser('~'), 'datasets', args.dataset)
+    # path = osp.join(osp.expanduser('~'), 'datasets', args.dataset)
+    path = "./../GraphNN/"
     dataset = get_dataset(path, args.dataset)
     data = dataset[0]
 
