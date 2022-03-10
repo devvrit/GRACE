@@ -13,6 +13,21 @@ Cora:
   tau: 0.4
   num_epochs: 200
   weight_decay: 0.00001
+ogbn-arxiv:
+  seed: 37912
+  learning_rate: 0.005
+  num_hidden: 256
+  num_proj_hidden: 256
+  activation: 'relu'
+  base_model: 'GCNConv'
+  num_layers: 2
+  drop_edge_rate_1: 0.4
+  drop_edge_rate_2: 0.1
+  drop_feature_rate_1: 0.05
+  drop_feature_rate_2: 0.2
+  tau: 0.7
+  num_epochs: 50
+  weight_decay: 0.00001
 CiteSeer:
   seed: 38108
   learning_rate: 0.001

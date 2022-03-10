@@ -27,7 +27,7 @@ def train(model: Model, x, edge_index):
     z1 = model(x_1, edge_index_1)
     z2 = model(x_2, edge_index_2)
 
-    loss = model.loss(z1, z2, batch_size=0)
+    loss = model.loss(z1, z2, batch_size=1024)
     loss.backward()
     optimizer.step()
 
@@ -74,8 +74,12 @@ if __name__ == '__main__':
     weight_decay = config['weight_decay']
 
     def get_dataset(path, name):
-        assert name in ['Cora', 'CiteSeer', 'PubMed', 'DBLP']
+        #assert name in ['Cora', 'CiteSeer', 'PubMed', 'DBLP']
         name = 'dblp' if name == 'DBLP' else name
+        if name[:4]=="ogbn":
+            from ogb.nodeproppred import PygNodePropPredDataset
+            dataset = PygNodePropPredDataset(name=args.dataset, root="./../dataset")
+            return dataset
 
         return (CitationFull if name == 'dblp' else Planetoid)(
             path,

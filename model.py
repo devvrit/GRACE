@@ -64,8 +64,8 @@ class Model(torch.nn.Module):
         return self.fc2(z)
 
     def sim(self, z1: torch.Tensor, z2: torch.Tensor):
-        z1 = F.normalize(z1)
-        z2 = F.normalize(z2)
+        #z1 = F.normalize(z1)
+        #z2 = F.normalize(z2)
         return torch.mm(z1, z2.t())
 
     def semi_loss(self, z1: torch.Tensor, z2: torch.Tensor):
@@ -86,6 +86,8 @@ class Model(torch.nn.Module):
         f = lambda x: torch.exp(x / self.tau)
         indices = torch.arange(0, num_nodes).to(device)
         losses = []
+        z1 = F.normalize(z1)
+        z2 = F.normalize(z2)
 
         for i in range(num_batches):
             mask = indices[i * batch_size:(i + 1) * batch_size]
