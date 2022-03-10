@@ -34,11 +34,13 @@ def train(model: Model, x, edge_index):
     return loss.item()
 
 
-def test(model: Model, x, edge_index, y, final=False):
+def test(model: Model, x, edge_index, y, epoch, final=False):
     model.eval()
     z = model(x, edge_index)
+    torch.save(z, "embedding_grace.pt_epoch_"+str(epoch))
 
-    label_classification(z, y, ratio=0.1)
+    if final:
+        label_classification(z, y, ratio=0.1)
 
 
 if __name__ == '__main__':
@@ -102,6 +104,7 @@ if __name__ == '__main__':
         print(f'(T) | Epoch={epoch:03d}, loss={loss:.4f}, '
               f'this epoch {now - prev:.4f}, total {now - start:.4f}')
         prev = now
+        test(model, data.x, data.edge_index, data.y, epoch, final=False)
 
     print("=== Final ===")
     test(model, data.x, data.edge_index, data.y, final=True)
